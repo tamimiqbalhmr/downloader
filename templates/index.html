@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDM-style YouTube Downloader</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Floating Download Button -->
+    <div id="floatingDownloadBtn" class="floating-btn animate__animated animate__fadeIn">
+        <button class="btn btn-danger btn-lg rounded-pill shadow-lg">
+            <i class="bi bi-download"></i> Download
+        </button>
+    </div>
+
+    <!-- Download Panel -->
+    <div id="downloadPanel" class="download-panel animate__animated animate__fadeInUp">
+        <div class="panel-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-download me-2"></i> Download Options</h5>
+            <button id="closePanelBtn" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        
+        <div class="panel-body">
+            <!-- Video Info -->
+            <div id="videoInfo" class="mb-3" style="display: none;">
+                <div class="d-flex align-items-center gap-3">
+                    <img id="panelThumbnail" src="" class="thumbnail-preview rounded">
+                    <div>
+                        <h6 id="panelTitle" class="mb-1"></h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span id="panelDuration" class="badge bg-secondary"></span>
+                            <span id="panelQuality" class="badge bg-primary"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Format Selection -->
+            <div class="mb-3">
+                <ul class="nav nav-tabs" id="formatTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-tab-pane">
+                            <i class="bi bi-film me-1"></i> Video
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-tab-pane">
+                            <i class="bi bi-music-note me-1"></i> Audio
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content p-3 border border-top-0 rounded-bottom">
+                    <div class="tab-pane fade show active" id="video-tab-pane" role="tabpanel">
+                        <div class="row g-2" id="videoFormatsContainer"></div>
+                    </div>
+                    <div class="tab-pane fade" id="audio-tab-pane" role="tabpanel">
+                        <div class="row g-2" id="audioFormatsContainer"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Progress -->
+            <div id="downloadProgress" style="display: none;">
+                <div class="progress mb-2" style="height: 8px;">
+                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 0%"></div>
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                    <span id="progressText">0%</span>
+                    <span id="speedText">0 KB/s</span>
+                    <span id="timeLeft">--:--</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-footer">
+            <button id="serverDownloadBtn" class="btn btn-primary w-100">
+                <i class="bi bi-cloud-download me-1"></i> Download
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="container py-4">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-youtube me-2"></i> YouTube Downloader</h3>
+            </div>
+            
+            <div class="card-body">
+                <div class="mb-4">
+                    <div class="input-group">
+                        <input type="text" id="urlInput" class="form-control" 
+                               placeholder="Paste YouTube URL or video ID...">
+                        <button id="fetchBtn" class="btn btn-primary">
+                            <i class="bi bi-search me-1"></i> Fetch
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="videoInfoSection" style="display: none;">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="thumbnail-container">
+                                <img id="videoThumbnail" src="" class="img-fluid rounded shadow">
+                                <div class="duration-badge">
+                                    <span id="videoDuration" class="badge bg-dark"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 id="videoTitle" class="mb-2"></h4>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <span class="badge bg-secondary" id="uploaderBadge"></span>
+                                <span class="badge bg-info" id="viewsBadge"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
